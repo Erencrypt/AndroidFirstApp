@@ -2,9 +2,7 @@ package com.example.firstapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.icu.text.RelativeDateTimeFormatter;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -24,33 +22,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         send=(Button) findViewById(R.id.btnSend);
         send.setOnClickListener(this);
     }
+
     private Editable text;
     @Override
     public void onClick(View view){
         text=name.getText();
-        if (isValidName(text.toString())){
-            goToWelcome(text.toString());
-        }
-        else {
-            Toast.makeText(this,"Please enter a valid name.",Toast.LENGTH_SHORT).show();
-        }
+        if (isValidName(text.toString())){goToWelcome(text.toString());}
+        else {Toast.makeText(this,getString(R.string.error_message),Toast.LENGTH_SHORT).show();}
     }
 
     private void goToWelcome(String name){
         Bundle bundle =new Bundle();
         bundle.putString("NAME",name);
-
         Intent intent=new Intent(this,WelcomeActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
     }
 
     private boolean isValidName(String name){
-        if (name.length()>=3 && name.length()<=20){
-            return true;
-        }
-        else {
-            return false;
-        }
+        if (name.length()>=3 && name.length()<=20){return true;}
+        else {return false;}
     }
 }
